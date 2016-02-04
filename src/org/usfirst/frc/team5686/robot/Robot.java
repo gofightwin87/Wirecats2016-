@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team5686.robot;
 
+import org.usfirst.frc.team5686.robot.commands.driveWithJoysticks;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,7 +27,9 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
-
+    RobotDrive wirecatsRobot;
+    Joystick stick;
+    int autoLoopCounter;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -36,6 +40,10 @@ public class Robot extends IterativeRobot {
 //        chooser.addDefault("Default Auto", new ExampleCommand());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        wirecatsRobot= new RobotDrive (0,1);
+        stick = new Joystick (1);
+        stick = new Joystick (2);
+        stick = new Joystick (3);
     }
 	
 	/**
@@ -86,11 +94,15 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopInit() {
-		// This makes sure that the autonomous stops running when
+    	if (autonomousCommand != null) autonomousCommand.cancel();
+    	// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        if (autonomousCommand != null) autonomousCommand.cancel();
+
+   
+    	
+        
     }
 
     /**
@@ -98,6 +110,8 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+     	wirecatsRobot.arcadeDrive(stick);
+     	new driveWithJoysticks();
     }
     
     /**

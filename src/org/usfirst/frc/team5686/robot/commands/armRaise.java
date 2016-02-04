@@ -1,13 +1,15 @@
 package org.usfirst.frc.team5686.robot.commands;
 
+import org.usfirst.frc.team5686.robot.Ports;
+
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class armRaise extends Subsystem {
-	int armMotorSpeedUp = 1;      
-	int motorStop = 0;
-
+public class armRaise extends Command {
+	
+	int motorStop= Ports.motorStop;
+	int armMotorSpeedUp= Ports.armMotorSpeedUp;
 	//create a motor to run the intake wheels
 	Talon motor;// = org.usfirst.frc.team5686.robot.RobotMap.armMotor;
 
