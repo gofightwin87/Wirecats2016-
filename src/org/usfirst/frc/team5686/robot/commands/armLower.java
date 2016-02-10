@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class armLower extends Command {
-int armMotorSpeedDown= Ports.armMotorSpeedDown;
-int motorStop= Ports.motorStop;
+	int armMotorSpeedDown= Ports.armMotorSpeedDown;
+	int motorStop= Ports.motorStop;
 	//create a motor to run the intake wheels
 	Talon motor;// = org.usfirst.frc.team5686.robot.RobotMap.armMotor;
 

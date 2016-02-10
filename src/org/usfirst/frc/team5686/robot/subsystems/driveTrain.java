@@ -11,22 +11,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class driveTrain extends Subsystem {
-    public static driveTrain instance;
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-    public static RobotDrive robotDrive2 = RobotMap.DRIVE_TRAIN_ROBOT_DRIVE_2;
+	public static driveTrain instance;
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
+	public static RobotDrive robotDrive2 = RobotMap.DRIVE_TRAIN_ROBOT_DRIVE_2;
 	Talon rightMotor = RobotMap.DRIVE_TRAIN_RIGHT_MOTOR;
 	Talon leftMotor = RobotMap.DRIVE_TRAIN_LEFT_MOTOR;
-    public void initDefaultCommand() {
-    	instance  =this;
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    public static void drive(double left, double right){
-    	robotDrive2.tankDrive(left,right);
-    }
-    public void stop () {
-    	robotDrive2.drive(0, 0);
-    }
+	public void initDefaultCommand() {
+		instance  =this;
+		// Set the default command for a subsystem here.
+		//setDefaultCommand(new MySpecialCommand());
+	}
+	public static void drive(double left, double right){
+		robotDrive2.tankDrive(left,right);
+	}
+	public void stop () {
+		robotDrive2.drive(0, 0);
+	}
 }
 

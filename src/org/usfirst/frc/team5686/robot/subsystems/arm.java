@@ -10,35 +10,46 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class arm extends Subsystem {
 	public static arm instance;
 	public static arm arm1 = RobotMap.ARM;
-	Talon motor;
-	
+	Talon motor = RobotMap.DRIVE_TRAIN_ARM_MOTOR ;
+
 	int motorSpeedUp = Ports.armMotorSpeedUp;
 	int motorSpeedDown = Ports.armMotorSpeedDown;
 	int motorStop = Ports.motorStop;
-	
 
-	
-	
-	
-/**
- *
- */
-    
-    // Put methods for controlling this subsystezm
-    // here. Call these from Commands.
-	
-    public void initDefaultCommand() {
-    
-    	
-    	
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-  
-	
+
+
+
+
+	/**
+	 *
+	 */
+
+	// Put methods for controlling this subsystezm
+	// here. Call these from Commands.
+
+	public void initDefaultCommand() {
+		instance = this;
+
+
+		// Set the default command for a subsystem here.
+		//setDefaultCommand(new MySpecialCommand());
+	}
+	public static void armRaise () {
+
 	}
 
-    
+	public static void armLower () {
+
+	}
+
+	public void stop (){
+
+
+
+	}
+
+}
+
+
 
 
