@@ -14,7 +14,7 @@ public class driveTrain extends Subsystem {
 	public static driveTrain instance;
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	public static RobotDrive robotDrive2 = RobotMap.DRIVE_TRAIN_ROBOT_DRIVE_2;
+	public static RobotDrive wirecatsRobot = RobotMap.DRIVE_TRAIN_ROBOT_DRIVE_2;
 	Talon rightMotor = RobotMap.DRIVE_TRAIN_RIGHT_MOTOR;
 	Talon leftMotor = RobotMap.DRIVE_TRAIN_LEFT_MOTOR;
 	public void initDefaultCommand() {
@@ -23,10 +23,10 @@ public class driveTrain extends Subsystem {
 		//setDefaultCommand(new MySpecialCommand());
 	}
 	public static void drive(double left, double right){
-		robotDrive2.tankDrive(left,right);
+		wirecatsRobot.tankDrive(left,right);
 	}
 	public void stop () {
-		robotDrive2.drive(0, 0);
+		wirecatsRobot.drive(0, 0);
 	}
 }
 

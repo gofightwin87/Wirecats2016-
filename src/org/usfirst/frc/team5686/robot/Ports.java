@@ -10,5 +10,6 @@ package org.usfirst.frc.team5686.robot;
 		public static int wheelsMotorSpeedIn = 1;
 		public static int wheelsMotorSpeedOut = -1;
 		public static int motorStop = 0;
+		public static int autoDriveNumber = 1;
 		
 }

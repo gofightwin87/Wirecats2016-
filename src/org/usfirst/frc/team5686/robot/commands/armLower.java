@@ -1,10 +1,10 @@
 package org.usfirst.frc.team5686.robot.commands;
 
 import org.usfirst.frc.team5686.robot.Ports;
+import org.usfirst.frc.team5686.robot.subsystems.arm;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class armLower extends Command {
 	int armMotorSpeedDown= Ports.armMotorSpeedDown;
@@ -22,38 +22,37 @@ public class armLower extends Command {
 
 	}
 	public void down() {
-		motor.set(armMotorSpeedDown);
+		arm.armLower();
 	}
+
 
 	//make the motor stop
 	public void stop() {
 		motor.set(motorStop);
 	}
-	protected void execute() {
-
-		//make the motor run
-
-	}	
-
 	protected boolean isFinished() {
-		boolean isFinished = false;
-		return isFinished;
-	}
+        return arm.isSwitchSet();
+    }
 
 	// Called once after isFinished returns true
 	protected void end() {
+		arm.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-
-	}
+		end();
+	}  
 	public void interuptStop() {
 		motor.set(motorStop);
 	}
+	@Override
+	protected void execute() {
+		// TODO Auto-generated method stub
+		
+	}
 }
-
 
 
 
