@@ -1,20 +1,23 @@
+//Things to find out: Wheel speed, distance to low bar, different speeds on two wheels, slow down before reach bar?
+// different speed on ramp?
 
 package org.usfirst.frc.team5686.robot;
 
-import org.usfirst.frc.team5686.robot.commands.driveWithJoysticks;
+import org.usfirst.frc.team5686.robot.commands.Autonomous;
+import org.usfirst.frc.team5686.robot.subsystems.Arm;
+import org.usfirst.frc.team5686.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5686.robot.subsystems.IntakeWheels;
+import org.usfirst.frc.team5686.robot.subsystems.Scale;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-//import org.usfirst.frc.team5686.robot.commands.ExampleCommand;
-//import org.usfirst.frc.team5686.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -23,45 +26,50 @@ import edu.wpi.first.wpilibj.Joystick;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	//public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	
-		
-		DigitalInput limitSwitch;
-		
-		public void robotInit1() {
-			limitSwitch = new DigitalInput(1);
-		}
-		
-		public void operatorControl() {
-			// more code here
-			while (limitSwitch.get()) {
-				Timer.delay(10);
-			}
-		}
-	
+	public static DriveTrain drivetrain;
+	public static Arm arm;
+	public static IntakeWheels intake;
+	public static Scale scale;
 	
 	public static OI oi;
-
+	
 	Command autonomousCommand;
 	SendableChooser chooser;
-	RobotDrive wirecatsRobot;
-	Joystick stick;
-	int autoLoopCounter;
+	
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
+		// instantiate subsystems
+		drivetrain = new DriveTrain();
+		arm = new Arm();
+		intake = new IntakeWheels();
+		scale = new Scale();
+		
 		oi = new OI();
-		chooser = new SendableChooser();
-		//        chooser.addDefault("Default Auto", new ExampleCommand());
-		//        chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
-		wirecatsRobot= new RobotDrive (0,1);
-		stick = new Joystick (1);
-		stick = new Joystick (2);
-		stick = new Joystick (3);
+		
+		// run this after since dependancies
+		oi.setUpIntakeTriggers();
+		
+		// chooser = new SendableChooser();
+		// chooser.addDefault("Default Auto", new ExampleCommand());
+		// chooser.addObject("My Auto", new MyAutoCommand());
+		// SmartDashboard.putData("Auto mode", chooser);
+		try{
+		CameraServer server = CameraServer.getInstance();
+        server.setQuality(30);
+        server.setSize(1); //320x240
+        
+        USBCamera cam = new USBCamera("cam0");
+        server.startAutomaticCapture(cam);
+		}catch(Exception e){
+        	System.out.println(e.getMessage());
+        
+		}
+        autonomousCommand=new Autonomous();
+        
 	}
 
 	/**
@@ -69,9 +77,7 @@ public class Robot extends IterativeRobot {
 	 * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
 	 */
-	public void disabledInit(){
-
-	}
+	public void disabledInit(){}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
@@ -87,9 +93,8 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
 	public void autonomousInit() {
-		int driveNumber= Ports.autoDriveNumber;
-		autonomousCommand = (Command) chooser.getSelected();
-		wirecatsRobot.drive(driveNumber, driveNumber);
+		//int driveNumber= Ports.autoDriveNumber;
+		//autonomousCommand = (Command) chooser.getSelected();
 
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -110,6 +115,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during autonomous
 	 */
 	public void autonomousPeriodic() {
+	
 		Scheduler.getInstance().run();
 	}
 
@@ -119,10 +125,6 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to 
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-
-
-
-
 	}
 
 	/**
@@ -130,8 +132,6 @@ public class Robot extends IterativeRobot {
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		wirecatsRobot.arcadeDrive(stick);
-		new driveWithJoysticks();
 	}
 
 	/**
