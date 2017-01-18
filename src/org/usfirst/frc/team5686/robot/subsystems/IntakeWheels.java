@@ -37,12 +37,12 @@ public class IntakeWheels extends Subsystem {
 		if(!limit_switch.get()){
 			intake.set(0);
 		}else{
-			intake.set(INTAKE_SPEED);
+			intake.set(INTAKE_OUT_SPEED);
 		}
 	}
 	
 	public void intakeOut() {
-		intake.set(INTAKE_OUT_SPEED);
+		intake.set(INTAKE_SPEED);
 	}
 
 	public void stop (){

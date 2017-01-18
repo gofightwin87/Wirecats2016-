@@ -29,8 +29,8 @@ public class RobotMap {
 	
 	
 	//scale pwm
-	public static int scale_a = 00;
-	public static int scale_b = 00;
-
-
+	//public static int scale_a = 10;
+	//public static int scale_b = 11;
+	public static int scale_a = 7;
+	public static int scale_b = 6;
 	}
